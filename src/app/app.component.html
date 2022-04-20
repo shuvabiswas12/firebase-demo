@@ -2,10 +2,47 @@
   <ul>
     <!-- this async file unwarp the observable -->
     <ng-container *ngFor="let course of courses$ | async">
-      <li class="lead">{{ course | json }}</li>
+      <li class="lead">
+        {{ course.title }}
+        <button (click)="delete(course.eventId)" class="btn btn-warning my-1">
+          Delete
+        </button>
+
+        <button (click)="update(course.eventId)" class="btn btn-success mx-2">
+          Update
+        </button>
+      </li>
     </ng-container>
   </ul>
   <button (click)="ngOnDestroy()" class="btn btn-danger">
     Subscription OFF
   </button>
+  <br />
+
+  <div>
+    <input
+      type="text"
+      class="form-control my-3"
+      #title
+      (keyup.enter)="saveData(title)"
+    />
+    <br />
+    <input
+      (keyup.enter)="saveData_v2()"
+      type="text"
+      class="form-control"
+      [(ngModel)]="inputText"
+    />
+    <p>{{ inputText.toUpperCase() }}</p>
+  </div>
+
+  <br />
+
+  <div>
+    <form #form="ngForm" (ngSubmit)="submit(form)">
+      <input type="text" ngModel name="firstName" />
+      <input type="text" ngModel name="email" />
+      <button>Submit</button>
+    </form>
+  </div>
 </div>
